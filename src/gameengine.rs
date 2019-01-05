@@ -45,11 +45,11 @@ impl GameEngine {
       }
   }
 
-  pub fn move_game_piece(&self, from: Coordinate, to: Coordinate) {
+  pub fn move_game_piece(&mut self, from: Coordinate, to: Coordinate) {
     let piece = self.board_status.iter().find(|piece| piece.position == from);
     let to_piece = self.board_status.iter().find(|piece| piece.position == to);
 
-    let piece = match piece {
+    let mut piece = match piece {
         Some(p) => p,
         None => {
           panic!("Piece not found")
@@ -66,6 +66,8 @@ impl GameEngine {
         },
         None => (),
     };
+
+    piece.position = to;
   }
 }
 
@@ -152,7 +154,7 @@ mod test {
     let expected: BoardStatus = vec![
       GamePiece { color: Black, crowned: false, position: Coordinate { x: 1, y: 1 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 1, y: 7 } },
-      GamePiece { color: Black, crowned: false, position: Coordinate { x: 2, y: 2 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 3, y: 3 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 2, y: 8 } },
       GamePiece { color: Black, crowned: false, position: Coordinate { x: 3, y: 1 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 3, y: 7 } }, 
