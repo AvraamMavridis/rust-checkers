@@ -46,8 +46,9 @@ impl GameEngine {
   }
 
   pub fn move_game_piece(&mut self, from: Coordinate, to: Coordinate) {
-    let piece = self.board_status.iter().find(|piece| piece.position == from);
-    let to_piece = self.board_status.iter().find(|piece| piece.position == to);
+    let mut iterator = self.board_status.iter_mut();
+    let piece = iterator.find(|piece| piece.position == from);
+    let to_piece = iterator.find(|piece| piece.position == to);
 
     let mut piece = match piece {
         Some(p) => p,
@@ -166,12 +167,16 @@ mod test {
       GamePiece { color: White, crowned: false, position: Coordinate { x: 6, y: 8 } }, 
       GamePiece { color: Black, crowned: false, position: Coordinate { x: 7, y: 1 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 7, y: 7 } },
-      GamePiece { color: Black, crowned: false, position: Coordinate { x: 8, y: 2 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 7, y: 3 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 8, y: 8 } }
     ];
 
     let from = Coordinate { x: 2 , y: 2 };
     let to = Coordinate { x: 3, y: 3 };
+    new_game_engine.move_game_piece(from, to);
+
+    let from = Coordinate { x: 8 , y: 2 };
+    let to = Coordinate { x: 7, y: 3 };
     new_game_engine.move_game_piece(from, to);
 
     assert_eq!(new_game_engine.board_status, expected);

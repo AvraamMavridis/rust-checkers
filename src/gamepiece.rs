@@ -30,10 +30,6 @@ impl GamePiece {
       crowned: true,
     }
   }
-
-  pub fn move_piece(&mut self, new_position: Coordinate) {
-    self.position = new_position;
-  }
 }
 
 
