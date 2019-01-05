@@ -1,6 +1,7 @@
 use super::coordinate::{Coordinate,PossibleMoves, Positions};
 use super::gamepiece::{GamePiece, Colors};
 use super::gamepiece::Colors::{Black,White};
+use std::num;
 
 type BoardStatus = Vec<GamePiece>;
 
@@ -43,6 +44,29 @@ impl GameEngine {
         self.board_status.push(gamepiece);
       }
   }
+
+  pub fn move_game_piece(&self, from: Coordinate, to: Coordinate) {
+    let piece = self.board_status.iter().find(|piece| piece.position == from);
+    let to_piece = self.board_status.iter().find(|piece| piece.position == to);
+
+    let piece = match piece {
+        Some(p) => p,
+        None => {
+          panic!("Piece not found")
+        },
+    };
+
+    if ((from.x as i32 - to.x as i32)).abs() > 1 && ((from.y as i32 - to.y as i32)).abs() > 1 {
+      panic!("Piece can be moved only by 1 square at a time");
+    }
+
+    match to_piece {
+        Some(_) => {
+          panic!("Cannot be moved because there is another gamepiece in the position");
+        },
+        None => (),
+    };
+  }
 }
 
 #[cfg(test)]
@@ -68,6 +92,69 @@ mod test {
       GamePiece { color: Black, crowned: false, position: Coordinate { x: 2, y: 2 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 2, y: 8 } },
       GamePiece { color: Black, crowned: false, position: Coordinate { x: 3, y: 1 } },
+      GamePiece { color: White, crowned: false, position: Coordinate { x: 3, y: 7 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 4, y: 2 } },
+      GamePiece { color: White, crowned: false, position: Coordinate { x: 4, y: 8 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 5, y: 1 } },
+      GamePiece { color: White, crowned: false, position: Coordinate { x: 5, y: 7 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 6, y: 2 } },
+      GamePiece { color: White, crowned: false, position: Coordinate { x: 6, y: 8 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 7, y: 1 } },
+      GamePiece { color: White, crowned: false, position: Coordinate { x: 7, y: 7 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 8, y: 2 } },
+      GamePiece { color: White, crowned: false, position: Coordinate { x: 8, y: 8 } }
+    ];
+
+    assert_eq!(new_game_engine.board_status, expected);
+  }
+
+  #[test]
+  #[should_panic(expected = "Piece not found")]
+  fn it_should_panic_when_try_to_move_a_piece_from_invalid_position() {
+    let mut new_game_engine = GameEngine::new();
+    new_game_engine.initialize_game_pieces();
+
+    let from = Coordinate { x: 11 , y: 1 };
+    let to = Coordinate { x: 5, y: 5 };
+    
+    new_game_engine.move_game_piece(from, to);
+  }
+
+  #[test]
+  #[should_panic(expected = "Piece can be moved only by 1 square at a time")]
+  fn it_should_panic_when_try_to_move_more_than_one() {
+    let mut new_game_engine = GameEngine::new();
+    new_game_engine.initialize_game_pieces();
+
+    let from = Coordinate { x: 1 , y: 1 };
+    let to = Coordinate { x: 5, y: 5 };
+    
+    new_game_engine.move_game_piece(from, to);
+  }
+
+  #[test]
+  #[should_panic(expected = "Cannot be moved because there is another gamepiece in the position")]
+  fn it_should_panic_when_try_to_move_on_other_piece() {
+    let mut new_game_engine = GameEngine::new();
+    new_game_engine.initialize_game_pieces();
+
+    let from = Coordinate { x: 1 , y: 1 };
+    let to = Coordinate { x: 2, y: 2 };
+    
+    new_game_engine.move_game_piece(from, to);
+  }
+
+  #[test]
+  fn it_should_move_piece() {
+    let mut new_game_engine = GameEngine::new();
+    new_game_engine.initialize_game_pieces();
+
+    let expected: BoardStatus = vec![
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 1, y: 1 } },
+      GamePiece { color: White, crowned: false, position: Coordinate { x: 1, y: 7 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 2, y: 2 } },
+      GamePiece { color: White, crowned: false, position: Coordinate { x: 2, y: 8 } },
+      GamePiece { color: Black, crowned: false, position: Coordinate { x: 3, y: 1 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 3, y: 7 } }, 
       GamePiece { color: Black, crowned: false, position: Coordinate { x: 4, y: 2 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 4, y: 8 } },
@@ -80,6 +167,10 @@ mod test {
       GamePiece { color: Black, crowned: false, position: Coordinate { x: 8, y: 2 } },
       GamePiece { color: White, crowned: false, position: Coordinate { x: 8, y: 8 } }
     ];
+
+    let from = Coordinate { x: 2 , y: 2 };
+    let to = Coordinate { x: 3, y: 3 };
+    new_game_engine.move_game_piece(from, to);
 
     assert_eq!(new_game_engine.board_status, expected);
   }
