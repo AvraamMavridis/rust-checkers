@@ -1,3 +1,6 @@
+use super::coordinate::{Coordinate};
+
+
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum Colors {
   Black,
@@ -8,18 +11,21 @@ pub enum Colors {
 pub struct GamePiece {
   color: Colors,
   crowned: bool,
+  position: Coordinate,
 }
 
 impl GamePiece {
-  pub fn new(color: Colors) -> GamePiece {
+  pub fn new(color: Colors, position: Coordinate) -> GamePiece {
     GamePiece {
       color,
-      crowned: false
+      crowned: false,
+      position,
     }
   }
 
   pub fn crowned(game_piece: GamePiece) -> GamePiece {
     GamePiece {
+      position: game_piece.position,
       color: game_piece.color,
       crowned: true,
     }
