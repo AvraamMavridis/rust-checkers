@@ -11,16 +11,16 @@ pub struct GamePiece {
 }
 
 impl GamePiece {
-  fn new(color: Colors) -> GamePiece {
+  pub fn new(color: Colors) -> GamePiece {
     GamePiece {
       color,
       crowned: false
     }
   }
 
-  fn crowned(gamePiece: GamePiece) -> GamePiece {
+  pub fn crowned(game_piece: GamePiece) -> GamePiece {
     GamePiece {
-      color: gamePiece.color,
+      color: game_piece.color,
       crowned: true,
     }
   }
