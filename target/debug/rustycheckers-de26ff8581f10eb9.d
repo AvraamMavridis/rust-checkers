@@ -1,0 +1,1 @@
+/Users/avraam/repos/learn-rust/rustycheckers/target/debug/rustycheckers-de26ff8581f10eb9: /Users/avraam/repos/learn-rust/rustycheckers/src/coordinate.rs /Users/avraam/repos/learn-rust/rustycheckers/src/gamepiece.rs /Users/avraam/repos/learn-rust/rustycheckers/src/lib.rs

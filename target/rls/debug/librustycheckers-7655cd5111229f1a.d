@@ -1,0 +1,1 @@
+/Users/avraam/repos/learn-rust/rustycheckers/target/rls/debug/librustycheckers-7655cd5111229f1a.rmeta: /Users/avraam/repos/learn-rust/rustycheckers/src/board.rs /Users/avraam/repos/learn-rust/rustycheckers/src/lib.rs
