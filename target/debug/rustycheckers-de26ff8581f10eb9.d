@@ -1,1 +1,0 @@
-/Users/avraam/repos/rustycheckers/target/debug/rustycheckers-de26ff8581f10eb9: /Users/avraam/repos/rustycheckers/src/coordinate.rs /Users/avraam/repos/rustycheckers/src/gamepiece.rs /Users/avraam/repos/rustycheckers/src/lib.rs

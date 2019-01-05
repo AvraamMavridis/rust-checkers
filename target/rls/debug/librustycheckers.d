@@ -1,1 +1,0 @@
-/Users/avraam/repos/rustycheckers/target/rls/debug/librustycheckers.rmeta: /Users/avraam/repos/rustycheckers/src/coordinate.rs /Users/avraam/repos/rustycheckers/src/gamepiece.rs /Users/avraam/repos/rustycheckers/src/lib.rs
