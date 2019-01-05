@@ -9,9 +9,9 @@ pub enum Colors {
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct GamePiece {
-  color: Colors,
-  crowned: bool,
-  position: Coordinate,
+  pub color: Colors,
+  pub crowned: bool,
+  pub position: Coordinate,
 }
 
 impl GamePiece {

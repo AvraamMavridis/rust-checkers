@@ -6,14 +6,14 @@ pub enum PossibleMoves {
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Coordinate {
-  x: usize,
-  y: usize,
+  pub x: usize,
+  pub y: usize,
 }
 
-pub type AllowedMoves = Vec<Coordinate>;
+pub type Positions = Vec<Coordinate>;
 
 impl Coordinate {
-  fn generate_possible_moves(&self, offset: PossibleMoves) -> AllowedMoves {
+  fn generate_possible_moves(&self, offset: PossibleMoves) -> Positions {
     let offset_value = offset as usize;
 
     vec![
@@ -24,7 +24,7 @@ impl Coordinate {
     ]
   }
 
-  fn filter_moves(allowed_moves: &AllowedMoves) -> AllowedMoves {
+  fn filter_moves(allowed_moves: &Positions) -> Positions {
     allowed_moves
       .iter()
       .filter(|possible_move| possible_move.is_on_board())
@@ -36,12 +36,12 @@ impl Coordinate {
     self.x <= 8 && self.y <= 8 && self.x > 0 && self.y > 0 
   }
 
-  pub fn get_possible_moves(&self) -> AllowedMoves {
+  pub fn get_possible_moves(&self) -> Positions {
     let allowed_moves = self.generate_possible_moves(PossibleMoves::Simple);
     Coordinate::filter_moves(&allowed_moves)
   }
 
-  pub fn get_possible_jumps(&self) -> AllowedMoves {
+  pub fn get_possible_jumps(&self) -> Positions {
     let allowed_moves = self.generate_possible_moves(PossibleMoves::Jump);
     Coordinate::filter_moves(&allowed_moves)
   }
@@ -59,7 +59,7 @@ mod test {
       y: 2,
     };
 
-    let expected_moves: AllowedMoves = vec![
+    let expected_moves: Positions = vec![
       Coordinate { x: 3, y: 3 }, 
       Coordinate { x: 1, y: 3 }, 
       Coordinate { x: 3, y: 1 }, 
@@ -76,7 +76,7 @@ mod test {
       y: 1,
     };
 
-    let expected_moves: AllowedMoves = vec![Coordinate { x: 2, y: 2 }];
+    let expected_moves: Positions = vec![Coordinate { x: 2, y: 2 }];
 
     assert_eq!(cord.get_possible_moves(), expected_moves);
   }
@@ -88,7 +88,7 @@ mod test {
       y: 7,
     };
 
-    let expected_moves: AllowedMoves = vec![Coordinate { x: 2, y: 8 }, Coordinate { x: 2, y: 6 }];
+    let expected_moves: Positions = vec![Coordinate { x: 2, y: 8 }, Coordinate { x: 2, y: 6 }];
 
     assert_eq!(cord.get_possible_moves(), expected_moves);
   }
@@ -100,7 +100,7 @@ mod test {
       y: 4,
     };
 
-    let expected_moves: AllowedMoves = vec![
+    let expected_moves: Positions = vec![
       Coordinate { x: 6, y: 6 }, 
       Coordinate { x: 2, y: 6 }, 
       Coordinate { x: 6, y: 2 }, 
@@ -117,7 +117,7 @@ mod test {
       y: 2,
     };
 
-    let expected_moves: AllowedMoves = vec![
+    let expected_moves: Positions = vec![
       Coordinate { x: 4, y: 4 }, 
     ];
 
