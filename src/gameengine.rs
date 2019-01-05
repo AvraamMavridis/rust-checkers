@@ -50,12 +50,7 @@ impl GameEngine {
     let piece = iterator.find(|piece| piece.position == from);
     let to_piece = iterator.find(|piece| piece.position == to);
 
-    let mut piece = match piece {
-        Some(p) => p,
-        None => {
-          panic!("Piece not found")
-        },
-    };
+    let mut piece = piece.expect("Piece not found");
 
     if ((from.x as i32 - to.x as i32)).abs() > 1 && ((from.y as i32 - to.y as i32)).abs() > 1 {
       panic!("Piece can be moved only by 1 square at a time");
