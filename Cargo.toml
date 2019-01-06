@@ -5,3 +5,4 @@ authors = ["AvraamMavridis <avraammauridis@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+wasm-bindgen = "0.2.29"
