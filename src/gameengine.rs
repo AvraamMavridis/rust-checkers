@@ -52,6 +52,10 @@ impl GameEngine {
 
     let mut piece = piece.expect("Piece not found");
 
+    if piece.crowned {
+      panic!("Cannot move a crowned piece");
+    }
+
     if ((from.x as i32 - to.x as i32)).abs() > 1 && ((from.y as i32 - to.y as i32)).abs() > 1 {
       panic!("Piece can be moved only by 1 square at a time");
     }
@@ -139,6 +143,19 @@ mod test {
     let from = Coordinate { x: 1 , y: 1 };
     let to = Coordinate { x: 2, y: 2 };
     
+    new_game_engine.move_game_piece(from, to);
+  }
+
+  #[test]
+  #[should_panic(expected = "Cannot move a crowned piece")]
+  fn it_should_panic_when_try_to_move_crowned_piece() {
+    let mut new_game_engine = GameEngine::new();
+    new_game_engine.initialize_game_pieces();
+
+    let from = Coordinate { x: 1 , y: 1 };
+    let to = Coordinate { x: 2, y: 2 };
+
+    new_game_engine.board_status[0].crowned = true;
     new_game_engine.move_game_piece(from, to);
   }
 
