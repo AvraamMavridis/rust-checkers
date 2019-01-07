@@ -1,6 +1,5 @@
 use super::coordinate::{Coordinate};
 
-
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum Colors {
   Black,

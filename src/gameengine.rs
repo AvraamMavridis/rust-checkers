@@ -6,7 +6,7 @@ use std::num;
 type BoardStatus = Vec<GamePiece>;
 
 #[derive(Debug)]
-struct GameEngine {
+pub struct GameEngine {
   move_count: usize,
   current_turn: Colors,
   board_status: BoardStatus,

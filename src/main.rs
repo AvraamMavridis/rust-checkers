@@ -1,7 +1,8 @@
-mod gamepiece;
-mod coordinate;
-mod gameengine;
+pub mod gamepiece;
+pub mod coordinate;
+pub mod gameengine;
 
+pub use self::gameengine::{GameEngine};
 
 use wasm_bindgen::prelude::*;
 
@@ -18,4 +19,5 @@ pub fn greet(name: &str) {
 
 pub fn main() {
     // test();
+    let b = GameEngine::new();
 }
