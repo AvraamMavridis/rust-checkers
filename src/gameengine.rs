@@ -1,7 +1,6 @@
-use super::coordinate::{Coordinate,PossibleMoves, Positions};
+use super::coordinate::{Coordinate};
 use super::gamepiece::{GamePiece, Colors};
 use super::gamepiece::Colors::{Black,White};
-use std::num;
 
 type BoardStatus = Vec<GamePiece>;
 
